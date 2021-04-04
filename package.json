@@ -18,5 +18,12 @@
   "bugs": {
     "url": "https://github.com/br-monteiro/olx-challenge/issues"
   },
-  "homepage": "https://github.com/br-monteiro/olx-challenge#readme"
+  "homepage": "https://github.com/br-monteiro/olx-challenge#readme",
+  "devDependencies": {
+    "eslint": "^7.23.0",
+    "mocha": "^8.3.2"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
