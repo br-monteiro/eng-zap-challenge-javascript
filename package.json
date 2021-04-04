@@ -1,0 +1,22 @@
+{
+  "name": "olx-challenge",
+  "version": "1.0.0",
+  "description": "My solution for the OLX SWE Challenge",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --recursive \"src/**/*.test.js\"",
+    "watch:test": "npm run test -- --watch",
+    "lint": "node ./node_modules/.bin/eslint src/**/*.js",
+    "start": "node ./src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/br-monteiro/olx-challenge.git"
+  },
+  "author": "Edson B S Monteiro <bruno.monteirodg@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/br-monteiro/olx-challenge/issues"
+  },
+  "homepage": "https://github.com/br-monteiro/olx-challenge#readme"
+}
