@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha --recursive \"src/**/*.test.js\"",
-    "watch:test": "npm run test -- --watch",
+    "watch:test": "npm run test -- --watch --inline-diffs",
     "lint": "node ./node_modules/.bin/eslint src/**/*.js",
     "start": "node ./src/server.js"
   },
