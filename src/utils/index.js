@@ -2,6 +2,7 @@
  * @param { 'success' | 'error' } status
  * @param { string } message
  * @param { Object } data
+ * @returns { ResponsePattern }
  */
 function buildResponsePattern (status, message = '', data = {}) {
   if (
