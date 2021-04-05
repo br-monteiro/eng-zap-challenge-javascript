@@ -1,5 +1,5 @@
 class WarningLog {
-  constructor(boleReference) {
+  constructor (boleReference) {
     if (!boleReference) throw new Error('The log engine is required')
 
     /**
@@ -13,14 +13,13 @@ class WarningLog {
    * @param { string } message - The message of log
    * @param { Object } info - The object with more details about log
    */
-  async log(type, message = '', info = {}) {
+  async log (type, message = '', info = {}) {
     if (type !== 'warning') return false
 
     this.bole.warn(message, info)
 
     return true
   }
-
 }
 
 module.exports = WarningLog

@@ -15,7 +15,7 @@ describe('logger - info-log', () => {
     logger = new InfoLog(bole)
   })
 
-  it('throws an Error when instanciates without the log engine reference', () => {
+  it('throws an Error when instantiates without the log engine reference', () => {
     assert.throws(() => new InfoLog(), Error)
   })
 

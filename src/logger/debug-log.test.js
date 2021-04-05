@@ -15,7 +15,7 @@ describe('logger - debug-log', () => {
     logger = new ErrorLog(bole)
   })
 
-  it('throws an Error when instanciates without the log engine reference', () => {
+  it('throws an Error when instantiates without the log engine reference', () => {
     assert.throws(() => new ErrorLog(), Error)
   })
 

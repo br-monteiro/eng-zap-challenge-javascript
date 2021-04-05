@@ -8,7 +8,7 @@ const query = require('../query')
  * @param { Response } res
  * @returns { Response }
  */
-async function findData(req, res) {
+async function findData (req, res) {
   const queryResult = await query(req)
 
   if (!queryResult) {
