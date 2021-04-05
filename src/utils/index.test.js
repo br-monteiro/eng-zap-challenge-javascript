@@ -1,9 +1,8 @@
 const assert = require('assert')
 const utils = require('./index')
 
-describe('utils - index',  () => {
+describe('utils - index', () => {
   describe('#buildResponsePattern', () => {
-
     context('returns the object builded according parameters', () => {
       it('only status', () => {
         const expected = { status: 'success', message: '' }

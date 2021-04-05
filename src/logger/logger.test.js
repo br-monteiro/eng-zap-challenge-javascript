@@ -30,7 +30,7 @@ describe('logger - logger', () => {
     logger.setLogEngine(bole).setUp()
   })
 
-  it('throws an Error when instanciates without the context', () => {
+  it('throws an Error when instantiates without the context', () => {
     assert.throws(() => new Logger(), Error)
   })
 
