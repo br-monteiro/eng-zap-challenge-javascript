@@ -3,7 +3,7 @@ const Ajv = require('ajv')
 
 const SchemaValidator = require('./schema-validator')
 
-describe.only('schema-validator', () => {
+describe('schema-validator', () => {
   /**
    * @type { SchemaValidator }
    */
@@ -67,5 +67,37 @@ describe.only('schema-validator', () => {
     }
 
     assert.strictEqual(true, validation.validate(input, schema))
+  })
+
+  it('returns false when the input is invalidated according to the schema', () => {
+    const validation = new SchemaValidator(new Ajv())
+
+    const input = {
+      test: 'wrong',
+      OLX: 123,
+      num: 'test',
+      pattern: 'bla bla bla'
+    }
+
+    const schema = {
+      type: 'object',
+      properties: {
+        test: {
+          type: 'boolean'
+        },
+        OLX: {
+          type: 'string'
+        },
+        num: {
+          type: 'integer'
+        },
+        pattern: {
+          type: 'string',
+          pattern: '^[0-9]{2}-[0-9]{2}-[0-9]{4}$'
+        }
+      }
+    }
+
+    assert.strictEqual(false, validation.validate(input, schema))
   })
 })
