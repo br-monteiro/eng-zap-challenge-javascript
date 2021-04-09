@@ -3,7 +3,7 @@ const Ajv = require('ajv')
 
 const SchemaValidator = require('./schema-validator')
 
-describe('schema-validator', () => {
+describe('schema-validator - schema-validato', () => {
   /**
    * @type { SchemaValidator }
    */
@@ -20,17 +20,17 @@ describe('schema-validator', () => {
   })
 
   it('returns true when the entries are an Object', () => {
-    assert.strictEqual(true, schemaValidator.validate({}, {}))
-    assert.strictEqual(true, schemaValidator.validate([], []))
+    assert.strictEqual(schemaValidator.validate({}, {}), true)
+    assert.strictEqual(schemaValidator.validate([], []), true)
   })
 
   it('returns true when the entries are invalid', () => {
-    assert.strictEqual(false, schemaValidator.validate({}, undefined))
-    assert.strictEqual(false, schemaValidator.validate({}, false))
-    assert.strictEqual(false, schemaValidator.validate({}, 123))
-    assert.strictEqual(false, schemaValidator.validate(undefined, {}))
-    assert.strictEqual(false, schemaValidator.validate(false, {}))
-    assert.strictEqual(false, schemaValidator.validate(123, {}))
+    assert.strictEqual(schemaValidator.validate({}, undefined), false)
+    assert.strictEqual(schemaValidator.validate({}, false), false)
+    assert.strictEqual(schemaValidator.validate({}, 123), false)
+    assert.strictEqual(schemaValidator.validate(undefined, {}), false)
+    assert.strictEqual(schemaValidator.validate(false, {}), false)
+    assert.strictEqual(schemaValidator.validate(123, {}), false)
   })
 
   it('throws an Error when the validation engine is not informed', () => {
@@ -66,7 +66,7 @@ describe('schema-validator', () => {
       }
     }
 
-    assert.strictEqual(true, validation.validate(input, schema))
+    assert.strictEqual(validation.validate(input, schema), true)
   })
 
   it('returns false when the input is invalidated according to the schema', () => {
@@ -98,6 +98,47 @@ describe('schema-validator', () => {
       }
     }
 
-    assert.strictEqual(false, validation.validate(input, schema))
+    assert.strictEqual(validation.validate(input, schema), false)
+  })
+
+  it('returns the errors found in the schema', () => {
+    const validation = new SchemaValidator(new Ajv({ allErrors: true }))
+
+    const errors = [
+      {
+        instancePath: '/one',
+        schemaPath: '#/properties/one/type',
+        keyword: 'type',
+        params: { type: 'string' },
+        message: 'must be string'
+      },
+      {
+        instancePath: '/two',
+        schemaPath: '#/properties/two/type',
+        keyword: 'type',
+        params: { type: 'number' },
+        message: 'must be number'
+      }
+    ]
+
+    const schema = {
+      type: 'object',
+      properties: {
+        one: {
+          type: 'string'
+        },
+        two: {
+          type: 'number'
+        }
+      }
+    }
+
+    const data = {
+      one: 123, two: 'test'
+    }
+
+    validation.validate(data, schema)
+
+    assert.deepStrictEqual(validation.getErrors(), errors)
   })
 })
