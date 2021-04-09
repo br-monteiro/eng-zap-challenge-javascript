@@ -11,6 +11,15 @@ class SchemaValidator {
      * @type { Ajv }
      */
     this._engine = engine
+    this._errors = []
+  }
+
+  /**
+   * Returns an array with errors
+   * @returns { Array }
+   */
+  getErrors () {
+    return this._errors
   }
 
   /**
@@ -21,7 +30,14 @@ class SchemaValidator {
    */
   validate (input, schema) {
     try {
-      return this._engine.compile(schema)(input)
+      const validate = this._engine.compile(schema)
+      const isValid = validate(input)
+
+      if (!isValid && Array.isArray(validate.errors)) {
+        this._errors = validate.errors
+      }
+
+      return isValid
     } catch (error) {
       logger.log('error', 'Input incompatible with the scheme', error)
 
