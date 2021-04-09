@@ -3,6 +3,7 @@ const chai = require('chai')
 const chaiHttp = require('chai-http')
 
 const app = require('../index')
+const { setData } = require('../storage')
 
 bole.reset()
 
@@ -10,6 +11,11 @@ chai.use(chaiHttp)
 chai.should()
 
 describe('gateway-api - router', () => {
+  beforeEach(() => {
+    setData('zap', { id: '123' })
+    setData('viva-real', { id: '123' })
+  })
+
   describe('GET /api/v1/:apikey', () => {
     it('shoud returns HTTP 200 when the APIKey is equals to "viva-real"', (done) => {
       chai.request(app)
