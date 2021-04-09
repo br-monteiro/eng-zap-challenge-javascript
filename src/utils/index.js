@@ -20,13 +20,13 @@ function buildResponsePattern (status, message = '', data = {}) {
 }
 
 /**
- * Normalize string value.
+ * Normalize string value. If the value if not a valid string, then returns the same value
  * @param { string } value
  * @returns { string }
  */
 function normalizeStr (value) {
   if (!value || typeof value !== 'string') {
-    return ''
+    return value
   }
 
   return value.trim().toLocaleLowerCase()
