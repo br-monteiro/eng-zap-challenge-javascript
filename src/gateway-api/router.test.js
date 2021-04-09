@@ -1,6 +1,7 @@
 const bole = require('bole')
 const chai = require('chai')
 const chaiHttp = require('chai-http')
+const assert = require('assert')
 
 const app = require('../index')
 const { setData } = require('../storage')
@@ -40,7 +41,9 @@ describe('gateway-api - router', () => {
         .get('/api/v1/whatever')
         .end((_, res) => {
           res.should.have.status('404')
-          res.body.should.be.a('object')
+
+          const expected = { status: 'error', message: 'APIKey not found' }
+          assert.deepStrictEqual(res.body, expected)
           done()
         })
     })
