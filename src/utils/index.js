@@ -19,6 +19,20 @@ function buildResponsePattern (status, message = '', data = {}) {
   }
 }
 
+/**
+ * Normalize string value.
+ * @param { string } value
+ * @returns { string }
+ */
+function normalizeStr (value) {
+  if (!value || typeof value !== 'string') {
+    return ''
+  }
+
+  return value.trim().toLocaleLowerCase()
+}
+
 module.exports = {
-  buildResponsePattern
+  buildResponsePattern,
+  normalizeStr
 }
