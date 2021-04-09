@@ -1,7 +1,7 @@
 const assert = require('assert')
 const utils = require('./index')
 
-describe.only('utils - index', () => {
+describe('utils - index', () => {
   describe('#buildResponsePattern', () => {
     context('returns the object builded according parameters', () => {
       it('only status', () => {
@@ -55,6 +55,36 @@ describe.only('utils - index', () => {
       assert.strictEqual(utils.normalizeStr(true), true)
       assert.deepStrictEqual(utils.normalizeStr([]), [])
       assert.deepStrictEqual(utils.normalizeStr({}), {})
+    })
+  })
+
+  describe('#jsonParse', () => {
+    it('returns the object parsed from JSON string', () => {
+      const str = '{"test": true, "other": 123, "n": 1.5}'
+      const expected = {
+        test: true,
+        other: 123,
+        n: 1.5
+      }
+
+      assert.deepStrictEqual(utils.jsonParse(str), expected)
+    })
+
+    it('returns the fallback value when the JSON string is invalid', () => {
+      const str = '{test: true}'
+
+      assert.deepStrictEqual(utils.jsonParse(str), undefined)
+      assert.deepStrictEqual(utils.jsonParse(str, { fallback: true }), { fallback: true })
+      assert.deepStrictEqual(utils.jsonParse(str, true), true)
+      assert.deepStrictEqual(utils.jsonParse(str, 123), 123)
+    })
+
+    it('returns the fallback when the value is not a valid string', () => {
+      assert.deepStrictEqual(utils.jsonParse(null), undefined)
+      assert.deepStrictEqual(utils.jsonParse('', { fallback: true }), { fallback: true })
+      assert.deepStrictEqual(utils.jsonParse(undefined, { fallback: true }), { fallback: true })
+      assert.deepStrictEqual(utils.jsonParse({}, { fallback: true }), { fallback: true })
+      assert.deepStrictEqual(utils.jsonParse([], { fallback: true }), { fallback: true })
     })
   })
 })
