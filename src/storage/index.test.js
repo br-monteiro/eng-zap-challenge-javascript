@@ -1,6 +1,6 @@
 const assert = require('assert')
 const LRUCache = require('../lru-cache')
-const { getData, getFilter, getCache, setData, setFilter } = require('./index')
+const { getData, getFilter, getCollection, getCache, setData, setFilter } = require('./index')
 const storage = require('./storage')
 
 describe('storage - index', () => {
@@ -132,6 +132,37 @@ describe('storage - index', () => {
 
     it('returns null when there is no values associated to filter', () => {
       assert.deepStrictEqual(getFilter(APIKEY, 'MY-TEST', 123), null)
+    })
+  })
+
+  describe('#getCollection', () => {
+    it('returns the data collection associated with the APIKey', () => {
+      setData(APIKEY, { id: 'abc' })
+      setData(APIKEY, { id: 'efg' })
+      setData(APIKEY, { id: 'olx' })
+
+      const expected = {
+        abc: { id: 'abc' },
+        efg: { id: 'efg' },
+        olx: { id: 'olx' }
+      }
+
+      assert.deepStrictEqual(getCollection(APIKEY), expected)
+    })
+
+    it('returns null when there is no collection associated with APIKey', () => {
+      assert.strictEqual(getCollection('sei-la'), null)
+    })
+
+    it('throws an Error when the APIKey parameter is invalid', () => {
+      assert.throws(() => getCollection(), Error)
+      assert.throws(() => getCollection(''), Error)
+      assert.throws(() => getCollection(undefined), Error)
+      assert.throws(() => getCollection(null), Error)
+      assert.throws(() => getCollection(0), Error)
+      assert.throws(() => getCollection({}), Error)
+      assert.throws(() => getCollection([]), Error)
+      assert.throws(() => getCollection(true), Error)
     })
   })
 
