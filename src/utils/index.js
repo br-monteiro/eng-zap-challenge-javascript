@@ -32,7 +32,25 @@ function normalizeStr (value) {
   return value.trim().toLocaleLowerCase()
 }
 
+/**
+ * Parses a JSON string, constructing the JavaScript value or
+ * object described by the string
+ * @param { string } str - The JSON string
+ * @param { * } fallback - The value returned in fail case
+ * @returns { * } - The JSON string parsed or fallback value
+ */
+function jsonParse (str, fallback) {
+  if (str === null) return fallback
+
+  try {
+    return JSON.parse(str)
+  } catch (_) {
+    return fallback
+  }
+}
+
 module.exports = {
   buildResponsePattern,
-  normalizeStr
+  normalizeStr,
+  jsonParse
 }
