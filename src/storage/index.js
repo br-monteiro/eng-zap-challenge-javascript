@@ -105,6 +105,22 @@ function getData (apikey, dataId) {
 }
 
 /**
+ * Returns all items of APIKey from storage. Otherwise returns null
+ * @param { string } apikey - The APIKey of item
+ * @returns { Object }
+ */
+function getCollection (apikey) {
+  if (!apikey || typeof apikey !== 'string') {
+    throw new Error('The APIKey is required')
+  }
+
+  const normAPIKey = normalizeStr(apikey)
+  const collection = dataStorage.storage[normAPIKey]
+
+  return collection !== undefined ? collection : null
+}
+
+/**
  * Returns the LRU Cache instance
  * @returns { import('../lru-cache') }
  */
@@ -117,5 +133,6 @@ module.exports = {
   setFilter,
   getFilter,
   getData,
-  getCache
+  getCache,
+  getCollection
 }
