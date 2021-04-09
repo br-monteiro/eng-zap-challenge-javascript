@@ -41,4 +41,20 @@ describe('utils - index', () => {
       })
     })
   })
+
+  describe('#normalizeStr', () => {
+    it('returns the string as lower case and without spaces at init or end', () => {
+      assert.strictEqual('desapega, desapega... olx!', utils.normalizeStr('  Desapega, Desapega... OLX!  '))
+      assert.strictEqual('abc', utils.normalizeStr('   ABC    '))
+    })
+
+    it('returns the same value when it is not a valid string', () => {
+      assert.strictEqual(undefined, utils.normalizeStr())
+      assert.strictEqual('', utils.normalizeStr(''))
+      assert.strictEqual(-1, utils.normalizeStr(-1))
+      assert.strictEqual(true, utils.normalizeStr(true))
+      assert.deepStrictEqual([], utils.normalizeStr([]))
+      assert.deepStrictEqual({}, utils.normalizeStr({}))
+    })
+  })
 })
