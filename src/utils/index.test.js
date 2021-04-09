@@ -1,7 +1,7 @@
 const assert = require('assert')
 const utils = require('./index')
 
-describe('utils - index', () => {
+describe.only('utils - index', () => {
   describe('#buildResponsePattern', () => {
     context('returns the object builded according parameters', () => {
       it('only status', () => {
@@ -49,12 +49,12 @@ describe('utils - index', () => {
     })
 
     it('returns the same value when it is not a valid string', () => {
-      assert.strictEqual(undefined, utils.normalizeStr())
-      assert.strictEqual('', utils.normalizeStr(''))
-      assert.strictEqual(-1, utils.normalizeStr(-1))
-      assert.strictEqual(true, utils.normalizeStr(true))
-      assert.deepStrictEqual([], utils.normalizeStr([]))
-      assert.deepStrictEqual({}, utils.normalizeStr({}))
+      assert.strictEqual(utils.normalizeStr(), undefined)
+      assert.strictEqual(utils.normalizeStr(''), '')
+      assert.strictEqual(utils.normalizeStr(-1), -1)
+      assert.strictEqual(utils.normalizeStr(true), true)
+      assert.deepStrictEqual(utils.normalizeStr([]), [])
+      assert.deepStrictEqual(utils.normalizeStr({}), {})
     })
   })
 })
