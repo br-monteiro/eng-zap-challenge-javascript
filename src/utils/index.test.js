@@ -167,4 +167,48 @@ describe('utils - index', () => {
       assert.throws(() => utils.chunkArray([], 2, '1'), Error)
     })
   })
+
+  describe('#buildPaginationSettings', () => {
+    let mockRequest = {}
+
+    beforeEach(() => {
+      mockRequest = {
+        query: {
+          page: 7,
+          perPage: 25
+        }
+      }
+    })
+
+    it('returns the PaginationSettings according Request Object', () => {
+      const expected = {
+        page: 7,
+        perPage: 25
+      }
+
+      assert.deepStrictEqual(utils.buildPaginationSettings(mockRequest), expected)
+    })
+
+    it('returns the PaginationSettings with the last occurrence of the value', () => {
+      const expected = {
+        page: 10,
+        perPage: 77
+      }
+
+      mockRequest.query.page = [1, 2, 3, 10]
+      mockRequest.query.perPage = [1, 2, 3, 77]
+
+      assert.deepStrictEqual(utils.buildPaginationSettings(mockRequest), expected)
+    })
+
+    it('returns the PaginationSettings with default values when there is no Retest Object', () => {
+      const expected = {
+        page: 1,
+        perPage: 50
+      }
+
+      assert.deepStrictEqual(utils.buildPaginationSettings(), expected)
+      assert.deepStrictEqual(utils.buildPaginationSettings({}), expected)
+    })
+  })
 })
