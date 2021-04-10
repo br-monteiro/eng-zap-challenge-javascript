@@ -67,9 +67,44 @@ function intersection (setA, setB) {
   return intersect
 }
 
+/**
+ * Split a array in chunks with same size
+ * @param { Array } arr - The array to be splited
+ * @param { number } chunkSize - The size of the chunks
+ * @param { number } [untilPart] - The part that stop the split process
+ * @returns { Array<Array> }
+ */
+function chunkArray (arr, chunkSize, untilPart = null) {
+  if (!Array.isArray(arr)) {
+    throw new Error('The input is not an Array')
+  }
+
+  if (!Number.isInteger(chunkSize) || chunkSize <= 0) {
+    throw new Error('The value of chunk size must be a integer more than zero')
+  }
+
+  if (untilPart !== null && (!Number.isInteger(untilPart) || untilPart <= 0)) {
+    throw new Error('The value of untilPart must be a integer more than zero')
+  }
+
+  const chunks = []
+  const arrClone = [...arr] // clone array
+
+  while (arrClone.length) {
+    if (untilPart !== null && chunks.length === untilPart) {
+      break
+    }
+
+    chunks.push(arrClone.splice(0, chunkSize))
+  }
+
+  return chunks
+}
+
 module.exports = {
   buildResponsePattern,
   normalizeStr,
   jsonParse,
-  intersection
+  intersection,
+  chunkArray
 }
