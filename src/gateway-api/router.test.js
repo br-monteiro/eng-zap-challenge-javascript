@@ -106,4 +106,46 @@ describe('gateway-api - router', () => {
         })
     })
   })
+
+  describe('POST /api/v1/load', () => {
+    it('returns HTTP 200 when the Request body is according of JSON Schema', (done) => {
+      const regexBody = /^queue started at \w{3}\s\w{3}\s\d{2}\s\d{4}\s(\d{2}(:|\s))+\w+-\d+\s\([\w\s]+\)$/
+
+      chai.request(app)
+        .post('/api/v1/load')
+        .send({
+          sourceUrl: 'http://localhost/souce'
+        })
+        .end((_, res) => {
+          res.should.have.status('200')
+          assert.strictEqual(true, regexBody.test(res.body.message))
+          assert.strictEqual(res.body.status, 'success')
+          done()
+        })
+    })
+
+    it('returns HTTP 400 when the Request body is not according of JSON Schema', (done) => {
+      const expected = {
+        status: 'error',
+        message: 'schema violation',
+        errors: [{
+          instancePath: '',
+          schemaPath: '#/required',
+          keyword: 'required',
+          params: {
+            missingProperty: 'sourceUrl'
+          },
+          message: "must have required property 'sourceUrl'"
+        }]
+      }
+
+      chai.request(app)
+        .post('/api/v1/load')
+        .end((_, res) => {
+          res.should.have.status('400')
+          assert.deepStrictEqual(res.body, expected)
+          done()
+        })
+    })
+  })
 })
