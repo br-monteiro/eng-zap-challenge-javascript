@@ -1,9 +1,9 @@
 const router = require('express').Router()
 
-const { findData } = require('./gateway-controller')
+const { findData, processInputData } = require('./gateway-controller')
 
-router.get('/:apikey', (req, res) => {
-  return findData(req, res)
-})
+router.get('/:apikey', findData)
+
+router.post('/load', processInputData)
 
 module.exports = router

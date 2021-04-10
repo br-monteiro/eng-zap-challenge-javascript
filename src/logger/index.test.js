@@ -7,7 +7,7 @@ describe('logger - index', () => {
     assert.strictEqual('Logger', log.constructor.name)
   })
 
-  it('throw a Error when try to instanciate without context parameter', () => {
+  it('throw a Error when try to instantiate without context parameter', () => {
     assert.throws(() => loggerFactory(), Error)
   })
 })

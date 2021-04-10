@@ -1,0 +1,10 @@
+{
+  "type": "object",
+  "required": ["sourceUrl"],
+  "properties": {
+    "sourceUrl": {
+      "type": "string",
+      "pattern": "^https?:\\/{2}.+$"
+    }
+  }
+}
