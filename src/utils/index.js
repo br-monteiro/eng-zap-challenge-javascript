@@ -101,10 +101,39 @@ function chunkArray (arr, chunkSize, untilPart = null) {
   return chunks
 }
 
+/**
+ * Abstract the process to get the query parameter
+ * @param { Object } query - The query object from Request
+ * @param { string } paramName - The attribute name
+ * @param { number } fallback - The value returned in fail case
+ * @returns { number }
+ */
+function _abstractGetParam (query, paramName, fallback) {
+  let value = Array.isArray(query[paramName]) ? [...query[paramName]].pop() : query[paramName]
+  value = parseInt(value, 10)
+
+  return value > 0 ? value : fallback
+}
+
+/**
+ * Build the PaginationSettings object
+ * @param { Request } request - The request object
+ * @returns { PaginationSettings }
+ */
+function buildPaginationSettings (request) {
+  const query = (request && request.query) || {}
+
+  const page = _abstractGetParam(query, 'page', 1)
+  const perPage = _abstractGetParam(query, 'perPage', 50)
+
+  return { page, perPage }
+}
+
 module.exports = {
   buildResponsePattern,
   normalizeStr,
   jsonParse,
   intersection,
-  chunkArray
+  chunkArray,
+  buildPaginationSettings
 }
