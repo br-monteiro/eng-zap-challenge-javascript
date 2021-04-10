@@ -107,7 +107,7 @@ function getData (apikey, dataId) {
 /**
  * Returns all items of APIKey from storage. Otherwise returns null
  * @param { string } apikey - The APIKey of item
- * @returns { Object }
+ * @returns { Object | null }
  */
 function getCollection (apikey) {
   if (!apikey || typeof apikey !== 'string') {
