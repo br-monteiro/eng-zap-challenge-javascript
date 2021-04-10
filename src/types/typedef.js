@@ -71,3 +71,11 @@
  * @property { number } page
  * @property { number } perPage
  */
+
+/**
+ * @typedef QueryResult
+ * @property { number } pageNumber
+ * @property { number } pageSize
+ * @property { number } totalCount
+ * @property { Array<InputData> } listings
+ */
