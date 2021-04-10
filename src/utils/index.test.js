@@ -1,7 +1,7 @@
 const assert = require('assert')
 const utils = require('./index')
 
-describe.only('utils - index', () => {
+describe('utils - index', () => {
   describe('#buildResponsePattern', () => {
     context('returns the object builded according parameters', () => {
       it('only status', () => {
@@ -112,6 +112,59 @@ describe.only('utils - index', () => {
 
       assert.deepStrictEqual(utils.intersection(setA, setB), expected)
       assert.deepStrictEqual(utils.intersection(new Set(), setB), expected)
+    })
+  })
+
+  describe('#chunkArray', () => {
+    it('split an array in chunk with the same size', () => {
+      const arr = [1, 2, 3, 4, 5, 6]
+      const expected = [
+        [1, 2],
+        [3, 4],
+        [5, 6]
+      ]
+
+      assert.deepStrictEqual(utils.chunkArray(arr, 2), expected)
+    })
+
+    it('split an array with the last chunk with the rest of items', () => {
+      const arr = [1, 2, 3, 4, 5, 6]
+      const expected = [
+        [1, 2, 3, 4],
+        [5, 6]
+      ]
+
+      assert.deepStrictEqual(utils.chunkArray(arr, 4), expected)
+    })
+
+    it('split an array in chunk with the same size until the part informed as parameter', () => {
+      const arr = [1, 2, 3, 4, 5, 6]
+      const expected = [
+        [1, 2],
+        [3, 4]
+      ]
+
+      assert.deepStrictEqual(utils.chunkArray(arr, 2, 2), expected)
+      assert.deepStrictEqual(utils.chunkArray(arr, 2, 1), [[1, 2]])
+    })
+
+    it('throws an Error when the value informed to splited is not an Array', () => {
+      assert.throws(() => utils.chunkArray(), Error)
+      assert.throws(() => utils.chunkArray({}, 2), Error)
+      assert.throws(() => utils.chunkArray(null, 2), Error)
+    })
+
+    it('throws an Error when the chunk size informed is not an integer more than zero', () => {
+      assert.throws(() => utils.chunkArray([]), Error)
+      assert.throws(() => utils.chunkArray([], 0), Error)
+      assert.throws(() => utils.chunkArray([], Infinity), Error)
+      assert.throws(() => utils.chunkArray([], null), Error)
+    })
+
+    it('throws an Error when the "untilPart" informed is not an integer more than zero', () => {
+      assert.throws(() => utils.chunkArray([], 2, true), Error)
+      assert.throws(() => utils.chunkArray([], 2, Infinity), Error)
+      assert.throws(() => utils.chunkArray([], 2, '1'), Error)
     })
   })
 })
