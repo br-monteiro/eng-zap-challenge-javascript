@@ -1,7 +1,7 @@
 const assert = require('assert')
 const utils = require('./index')
 
-describe('utils - index', () => {
+describe.only('utils - index', () => {
   describe('#buildResponsePattern', () => {
     context('returns the object builded according parameters', () => {
       it('only status', () => {
@@ -85,6 +85,33 @@ describe('utils - index', () => {
       assert.deepStrictEqual(utils.jsonParse(undefined, { fallback: true }), { fallback: true })
       assert.deepStrictEqual(utils.jsonParse({}, { fallback: true }), { fallback: true })
       assert.deepStrictEqual(utils.jsonParse([], { fallback: true }), { fallback: true })
+    })
+  })
+
+  describe('#intersection', () => {
+    it('returns the intersection with the set A and the set B', () => {
+      const setA = new Set().add('a').add('b').add('c')
+      const setB = new Set().add('b').add('c').add('d')
+      const expected = new Set().add('b').add('c')
+
+      assert.deepStrictEqual(utils.intersection(setA, setB), expected)
+    })
+
+    it('returns the intersection with the set A and the set B when both the sets have the same values', () => {
+      const setA = new Set().add('a').add('b').add('c')
+      const setB = new Set().add('a').add('b').add('c')
+      const expected = new Set().add('a').add('b').add('c')
+
+      assert.deepStrictEqual(utils.intersection(setA, setB), expected)
+    })
+
+    it('returns a empty set when there is no intersection', () => {
+      const setA = new Set().add('a').add('b').add('c')
+      const setB = new Set().add('d').add('e').add('f')
+      const expected = new Set()
+
+      assert.deepStrictEqual(utils.intersection(setA, setB), expected)
+      assert.deepStrictEqual(utils.intersection(new Set(), setB), expected)
     })
   })
 })
