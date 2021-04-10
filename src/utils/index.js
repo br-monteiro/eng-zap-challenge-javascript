@@ -49,8 +49,27 @@ function jsonParse (str, fallback) {
   }
 }
 
+/**
+ * Returns the intersection of two sets
+ * @param { Set } setA - Set Object
+ * @param { Set } setB - Set Object
+ * @returns { Set }
+ */
+function intersection (setA, setB) {
+  const intersect = new Set()
+
+  for (const elem of setB) {
+    if (setA.has(elem)) {
+      intersect.add(elem)
+    }
+  }
+
+  return intersect
+}
+
 module.exports = {
   buildResponsePattern,
   normalizeStr,
-  jsonParse
+  jsonParse,
+  intersection
 }
