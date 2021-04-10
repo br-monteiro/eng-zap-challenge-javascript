@@ -18,7 +18,7 @@ describe('gateway-api - router', () => {
   })
 
   describe('GET /api/v1/:apikey', () => {
-    it('shoud returns HTTP 200 when the APIKey is equals to "viva-real"', (done) => {
+    it('should returns HTTP 200 when the APIKey is equals to "viva-real"', (done) => {
       const expected = {
         pageNumber: 1,
         pageSize: 1,
@@ -37,7 +37,7 @@ describe('gateway-api - router', () => {
         })
     })
 
-    it('shoud returns HTTP 200 when the APIKey is equals to "zap"', (done) => {
+    it('should returns HTTP 200 when the APIKey is equals to "zap"', (done) => {
       const expected = {
         pageNumber: 1,
         pageSize: 1,
@@ -56,7 +56,7 @@ describe('gateway-api - router', () => {
         })
     })
 
-    it('shoud returns HTTP 404 when the APIKey is invalid', (done) => {
+    it('should returns HTTP 404 when the APIKey is invalid', (done) => {
       const expected = {
         status: 'error',
         message: 'results not found'
