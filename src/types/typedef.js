@@ -59,3 +59,9 @@
  * @property { object } filters
  * @property { import('../lru-cache') } cache
  */
+
+/**
+ * @typedef FilterDetail
+ * @property { string } key
+ * @property { string } value
+ */
