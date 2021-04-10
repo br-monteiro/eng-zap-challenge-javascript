@@ -65,3 +65,9 @@
  * @property { string } key
  * @property { string } value
  */
+
+/**
+ * @typedef PaginationSettings
+ * @property { number } page
+ * @property { number } perPage
+ */
