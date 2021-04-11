@@ -79,7 +79,8 @@ function getFilter (apikey, filterName, value) {
   try {
     const normAPIKey = normalizeStr(apikey)
     const normFilterName = normalizeStr(filterName)
-    const filter = dataStorage.filters[normAPIKey][normFilterName][value]
+    const normValue = normalizeStr(decodeURIComponent(value))
+    const filter = dataStorage.filters[normAPIKey][normFilterName][normValue]
 
     return filter !== undefined ? filter : null
   } catch (_) {
