@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+  app:
+    build: .
+    working_dir: /opt/app
+    volumes:
+      - .:/opt/app
+      - /opt/app/node_modules
+    ports:
+      - "3000:3000"
+    entrypoint: "npm start"
+    env_file: .env
+    environment:
+      "EXPRESS_PORT": "3000"
+      "NODE_ENV": "development"
+      "LRU_CACHE_CAPACITY": "100"
