@@ -38,6 +38,10 @@ function readSourceFile (url, cb) {
           cb.call(this, line)
         }
       })
+      .on('error', error => {
+        logger.error('there was an error when trying to access the URL', error)
+        reject(error)
+      })
       .on('close', () => resolve(lineBuffer))
   })
 }
@@ -56,11 +60,15 @@ async function processSource (url) {
 
   const inputProcessor = new InputProcessor()
 
-  return readSourceFile(url, line => {
-    const json = jsonParse(line, {})
+  try {
+    return readSourceFile(url, line => {
+      const json = jsonParse(line, {})
 
-    inputProcessor.run(json)
-  })
+      inputProcessor.run(json)
+    })
+  } catch (error) {
+    logger.error('there was an error when trying to access the URL', error)
+  }
 }
 
 module.exports = {
