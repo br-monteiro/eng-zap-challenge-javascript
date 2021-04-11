@@ -37,7 +37,7 @@ describe('logger - logger', () => {
   it('returns the outputLog for log type "debug"', async () => {
     const expected = 'debug#this is a log message#{"details":true}'
 
-    await logger.log('debug', 'this is a log message', { details: true })
+    await logger.debug('this is a log message', { details: true })
 
     assert.strictEqual(outputLog, expected)
   })
@@ -45,7 +45,7 @@ describe('logger - logger', () => {
   it('returns the outputLog for log type "info"', async () => {
     const expected = 'info#this is a log message#{"details":true}'
 
-    await logger.log('info', 'this is a log message', { details: true })
+    await logger.info('this is a log message', { details: true })
 
     assert.strictEqual(outputLog, expected)
   })
@@ -53,7 +53,7 @@ describe('logger - logger', () => {
   it('returns the outputLog for log type "warning"', async () => {
     const expected = 'warning#this is a log message#{"details":true}'
 
-    await logger.log('warning', 'this is a log message', { details: true })
+    await logger.warning('this is a log message', { details: true })
 
     assert.strictEqual(outputLog, expected)
   })
@@ -61,7 +61,7 @@ describe('logger - logger', () => {
   it('returns the outputLog for log type "error"', async () => {
     const expected = 'error#this is a log message#{"details":true}'
 
-    await logger.log('error', 'this is a log message', { details: true })
+    await logger.error('this is a log message', { details: true })
 
     assert.strictEqual(outputLog, expected)
   })
