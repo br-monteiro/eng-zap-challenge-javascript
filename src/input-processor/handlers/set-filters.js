@@ -14,38 +14,18 @@ class SetFilters extends AbstractHandler {
       return super.handle(data)
     }
 
-    const saveFilter = this.prepareSetFilter(apikey, dataId)
-    const deleteFilter = this.prepareRemoveFilter(apikey, dataId)
+    const updateFilter = this.prepareUpdateFilter(apikey, dataId)
 
-    deleteFilter('city', this.getCity(oldData))
-    saveFilter('city', this.getCity(data))
-
-    deleteFilter('usableAreas', this.getUsableAreas(oldData))
-    saveFilter('usableAreas', this.getUsableAreas(data))
-
-    deleteFilter('parkingSpaces', this.getParkingSpaces(oldData))
-    saveFilter('parkingSpaces', this.getParkingSpaces(data))
-
-    deleteFilter('bathrooms', this.getBathrooms(oldData))
-    saveFilter('bathrooms', this.getBathrooms(data))
-
-    deleteFilter('bedrooms', this.getBebrooms(oldData))
-    saveFilter('bedrooms', this.getBebrooms(data))
-
-    deleteFilter('monthlyCondoFee', this.getMonthlyCondoFee(oldData))
-    saveFilter('monthlyCondoFee', this.getMonthlyCondoFee(data))
-
-    deleteFilter('price', this.getPrice(oldData))
-    saveFilter('price', this.getPrice(data))
-
-    deleteFilter('rentalTotalPrice', this.getRentalTotalPrice(oldData))
-    saveFilter('rentalTotalPrice', this.getRentalTotalPrice(data))
-
-    deleteFilter('businessType', this.getBusinessType(oldData))
-    saveFilter('businessType', this.getBusinessType(data))
-
-    deleteFilter('neighborhood', this.getNeighborhood(oldData))
-    saveFilter('neighborhood', this.getNeighborhood(data))
+    updateFilter('city', this.getCity(data), this.getCity(oldData))
+    updateFilter('usableAreas', this.getUsableAreas(data), this.getUsableAreas(oldData))
+    updateFilter('parkingSpaces', this.getParkingSpaces(data), this.getParkingSpaces(oldData))
+    updateFilter('bathrooms', this.getBathrooms(data), this.getBathrooms(oldData))
+    updateFilter('bedrooms', this.getBebrooms(data), this.getBebrooms(oldData))
+    updateFilter('monthlyCondoFee', this.getMonthlyCondoFee(data), this.getMonthlyCondoFee(oldData))
+    updateFilter('price', this.getPrice(data), this.getPrice(oldData))
+    updateFilter('rentalTotalPrice', this.getRentalTotalPrice(data), this.getRentalTotalPrice(oldData))
+    updateFilter('businessType', this.getBusinessType(data), this.getBusinessType(oldData))
+    updateFilter('neighborhood', this.getNeighborhood(data), this.getNeighborhood(oldData))
 
     return super.handle(data)
   }
@@ -82,6 +62,22 @@ class SetFilters extends AbstractHandler {
       if (filterName && filterValue && typeof fn === 'function') {
         fn(apikey, filterName, dataId, filterValue)
       }
+    }
+  }
+
+  /**
+   * Insert or update a filter on storage
+   * @param { string } apikey - The APIKey value
+   * @param { string } dataId - The ID of the data
+   * @returns { (filterName:String, value:String, oldValue:String) => {} }
+   */
+  prepareUpdateFilter (apikey, dataId) {
+    const saveFilter = this.prepareSetFilter(apikey, dataId)
+    const deleteFilter = this.prepareRemoveFilter(apikey, dataId)
+
+    return function (filterName, value, oldValue) {
+      deleteFilter(filterName, oldValue)
+      saveFilter(filterName, value)
     }
   }
 
