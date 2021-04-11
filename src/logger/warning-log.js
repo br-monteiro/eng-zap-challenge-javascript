@@ -9,16 +9,11 @@ class WarningLog {
   }
 
   /**
-   * @param { LogType } type - The type of log
    * @param { string } message - The message of log
    * @param { Object } info - The object with more details about log
    */
-  async log (type, message = '', info = {}) {
-    if (type !== 'warning') return false
-
+  async log (message = '', info = {}) {
     this.bole.warn(message, info)
-
-    return true
   }
 }
 

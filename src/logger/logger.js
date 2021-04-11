@@ -34,22 +34,42 @@ class Logger {
   }
 
   setUp () {
-    this.debug = new DebugLog(this.logEngine)
-    this.info = new InfoLog(this.logEngine)
-    this.warning = new WarningLog(this.logEngine)
-    this.error = new ErrorLog(this.logEngine)
+    this._debug = new DebugLog(this.logEngine)
+    this._info = new InfoLog(this.logEngine)
+    this._warning = new WarningLog(this.logEngine)
+    this._error = new ErrorLog(this.logEngine)
   }
 
   /**
-   * @param { LogType } type - The type of log
    * @param { string } message - The message of log
    * @param { Object } info - The object with more details about log
    */
-  log (type, message = '', info = {}) {
-    this.debug.log(type, message, info)
-    this.info.log(type, message, info)
-    this.warning.log(type, message, info)
-    this.error.log(type, message, info)
+  debug (message = '', info = {}) {
+    this._debug.log(message, info)
+  }
+
+  /**
+   * @param { string } message - The message of log
+   * @param { Object } info - The object with more details about log
+   */
+  info (message = '', info = {}) {
+    this._info.log(message, info)
+  }
+
+  /**
+   * @param { string } message - The message of log
+   * @param { Object } info - The object with more details about log
+   */
+  warning (message = '', info = {}) {
+    this._warning.log(message, info)
+  }
+
+  /**
+   * @param { string } message - The message of log
+   * @param { Object } info - The object with more details about log
+   */
+  error (message = '', info = {}) {
+    this._error.log(message, info)
   }
 }
 

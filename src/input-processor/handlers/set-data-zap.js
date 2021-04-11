@@ -55,7 +55,7 @@ class SetDataZap extends AbstractHandler {
 
     const squareMeterValue = price / usableAreas
 
-    return squareMeterValue > 0 && squareMeterValue > 3500
+    return usableAreas > 0 && squareMeterValue > 3500
   }
 }
 

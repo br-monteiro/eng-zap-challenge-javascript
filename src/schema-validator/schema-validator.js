@@ -3,7 +3,7 @@ const logger = require('../logger')('schema-validator/schema-validator')
 class SchemaValidator {
   constructor (engine) {
     if (!engine) {
-      logger.log('error', 'Validation engine not informed')
+      logger.error('Validation engine not informed')
 
       throw new Error('Validation engine not informed')
     }
@@ -39,7 +39,7 @@ class SchemaValidator {
 
       return isValid
     } catch (error) {
-      logger.log('error', 'Input incompatible with the scheme', error)
+      logger.error('Input incompatible with the scheme', error)
 
       return false
     }

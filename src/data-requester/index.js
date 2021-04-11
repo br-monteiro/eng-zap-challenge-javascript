@@ -14,7 +14,7 @@ const { jsonParse } = require('../utils')
 function readSourceFile (url, cb) {
   return new Promise((resolve, reject) => {
     if (!url || typeof url !== 'string') {
-      logger.log('error', 'The URL is required', url)
+      logger.error('The URL is required', url)
       return reject(new Error('The URL is required'))
     }
 
@@ -24,7 +24,7 @@ function readSourceFile (url, cb) {
       input: request
         .get(url)
         .on('error', err => {
-          logger.log('error', 'error with URL request', err)
+          logger.error('error with URL request', err)
 
           return reject(err)
         })
@@ -49,7 +49,7 @@ function readSourceFile (url, cb) {
  */
 async function processSource (url) {
   if (!url || typeof url !== 'string') {
-    logger.log('error', 'The URL is required', url)
+    logger.error('The URL is required', url)
 
     throw new Error('The URL is required')
   }
