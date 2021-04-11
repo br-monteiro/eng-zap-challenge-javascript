@@ -129,11 +129,27 @@ function buildPaginationSettings (request) {
   return { page, perPage }
 }
 
+/**
+ * Check if the Lat and Long is inside of ZAP BoundingBox
+ * @param { number } lat
+ * @param { number } lon
+ * @returns { boolean }
+ */
+function isBoundingBoxZap (lat, lon) {
+  const minLat = -23.568704
+  const maxLat = -23.546686
+  const minLon = -46.693419
+  const maxLon = -46.641146
+
+  return (lat >= minLat && lat <= maxLat) && (lon >= minLon && lon <= maxLon)
+}
+
 module.exports = {
   buildResponsePattern,
   normalizeStr,
   jsonParse,
   intersection,
   chunkArray,
-  buildPaginationSettings
+  buildPaginationSettings,
+  isBoundingBoxZap
 }
