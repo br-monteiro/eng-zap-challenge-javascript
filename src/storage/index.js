@@ -51,6 +51,7 @@ function setFilter (apikey, filterName, dataId, value) {
   const normDataId = normalizeStr(dataId)
   const normAPIKey = normalizeStr(apikey)
   const normFilterName = normalizeStr(filterName)
+  const normValue = normalizeStr(value)
 
   if (!dataStorage.filters[normAPIKey]) {
     dataStorage.filters[normAPIKey] = {}
@@ -60,11 +61,11 @@ function setFilter (apikey, filterName, dataId, value) {
     dataStorage.filters[normAPIKey][normFilterName] = {}
   }
 
-  if (!dataStorage.filters[normAPIKey][normFilterName][value]) {
-    dataStorage.filters[normAPIKey][normFilterName][value] = new Set()
+  if (!dataStorage.filters[normAPIKey][normFilterName][normValue]) {
+    dataStorage.filters[normAPIKey][normFilterName][normValue] = new Set()
   }
 
-  dataStorage.filters[normAPIKey][normFilterName][value].add(normDataId)
+  dataStorage.filters[normAPIKey][normFilterName][normValue].add(normDataId)
 }
 
 /**
@@ -128,11 +129,53 @@ function getCache () {
   return dataStorage.cache
 }
 
+/**
+ * Remove the reference of the item in filter storage
+ * @param { string } apikey - The apikey value
+ * @param { string } filterName - The filter name
+ * @param { string } dataId - The id of data
+ * @param { * } value - The value of filter
+ */
+function removeFilter (apikey, filterName, dataId, value) {
+  if (!apikey || typeof apikey !== 'string') {
+    throw new Error('The APIKey is required')
+  }
+
+  if (!filterName || typeof filterName !== 'string') {
+    throw new Error('The FilterName is required')
+  }
+
+  if (!dataId) {
+    throw new Error('The dataId must to be a truthy value')
+  }
+
+  const normDataId = normalizeStr(dataId)
+  const normAPIKey = normalizeStr(apikey)
+  const normFilterName = normalizeStr(filterName)
+
+  if (
+    dataStorage.filters[normAPIKey] &&
+    dataStorage.filters[normAPIKey][normFilterName]
+  ) {
+    const normValue = normalizeStr(value)
+    const normValueNumber = Number(normValue)
+
+    if (dataStorage.filters[normAPIKey][normFilterName][normValueNumber]) {
+      return dataStorage.filters[normAPIKey][normFilterName][normValueNumber].delete(normDataId)
+    } else if (dataStorage.filters[normAPIKey][normFilterName][normValue]) {
+      return dataStorage.filters[normAPIKey][normFilterName][normValue].delete(normDataId)
+    }
+  }
+
+  return false
+}
+
 module.exports = {
   setData,
   setFilter,
   getFilter,
   getData,
   getCache,
-  getCollection
+  getCollection,
+  removeFilter
 }
