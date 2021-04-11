@@ -1,5 +1,6 @@
 const AbstractHandler = require('./abstract-handler')
 const { setData, getData } = require('../../storage')
+const { isBoundingBoxZap } = require('../../utils')
 
 class SetDataVivaReal extends AbstractHandler {
   /**
@@ -56,25 +57,10 @@ class SetDataVivaReal extends AbstractHandler {
     const lat = data.address.geoLocation.location.lat
     const lon = data.address.geoLocation.location.lon
 
-    rentalTotalPrice = this.isBoundingBoxZap(lat, lon) ? rentalTotalPrice * 1.5 : rentalTotalPrice
+    rentalTotalPrice = isBoundingBoxZap(lat, lon) ? rentalTotalPrice * 1.5 : rentalTotalPrice
 
     return rentalTotalPrice <= 4000 &&
       monthlyCondoFee < (rentalTotalPrice * 0.3)
-  }
-
-  /**
-   * Check if the Lat and Long is inside of Zap BoundingBox
-   * @param { number } lat
-   * @param { number } lon
-   * @returns { boolean }
-   */
-  isBoundingBoxZap (lat, lon) {
-    const minLat = -23.568704
-    const maxLat = -23.546686
-    const minLon = -46.693419
-    const maxLon = -46.641146
-
-    return (lat <= minLat && lat >= maxLat) && (lon <= minLon && lon >= maxLon)
   }
 }
 
