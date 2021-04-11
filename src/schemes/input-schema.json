@@ -1,5 +1,6 @@
 {
   "type": "object",
+  "required": ["id", "updatedAt", "address", "pricingInfos"],
   "properties": {
     "usableAreas": {
       "type": "integer",
@@ -50,6 +51,7 @@
     },
     "address": {
       "type": "object",
+      "required": ["geoLocation"],
       "properties": {
         "city": {
           "type": "string"
@@ -59,6 +61,7 @@
         },
         "geoLocation": {
           "type": "object",
+          "required": ["location"],
           "properties": {
             "precision": {
               "type": "string",
@@ -66,6 +69,7 @@
             },
             "location": {
               "type": "object",
+              "required": ["lat", "lon"],
               "properties": {
                 "lon": {
                   "type": "number"
@@ -81,6 +85,7 @@
     },
     "pricingInfos": {
       "type": "object",
+      "required": ["price", "businessType"],
       "properties": {
         "yearlyIptu": {
           "type": "string",
@@ -89,6 +94,9 @@
         "price": {
           "type": "string",
           "minLength": 1
+        },
+        "rentalTotalPrice": {
+          "type": "string"
         },
         "businessType": {
           "type": "string",
