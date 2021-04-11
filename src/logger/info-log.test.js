@@ -1,36 +1,28 @@
 const assert = require('assert')
 
-const WarninLog = require('./warning-log')
+const InfoLog = require('./info-log')
 
-describe('logger - warning-log', () => {
+describe('logger - info-log', () => {
   const bole = {}
   let logger = {}
   let outputLog
 
   beforeEach(() => {
-    bole.warn = (message, info) => {
+    bole.info = (message, info) => {
       outputLog = `${message}#${JSON.stringify(info)}`
     }
 
-    logger = new WarninLog(bole)
+    logger = new InfoLog(bole)
   })
 
   it('throws an Error when instantiates without the log engine reference', () => {
-    assert.throws(() => new WarninLog(), Error)
-  })
-
-  it('returns true when the log type "warning" was executed', async () => {
-    assert.strictEqual(await logger.log('warning', 'test', {}), true)
-  })
-
-  it('returns false when the log type is not "warning"', async () => {
-    assert.strictEqual(await logger.log('whatever', 'test', {}), false)
+    assert.throws(() => new InfoLog(), Error)
   })
 
   it('returns the outputLog equals the parameters values', async () => {
     const expected = 'this is a log message#{"details":true}'
 
-    await logger.log('warning', 'this is a log message', { details: true })
+    await logger.log('this is a log message', { details: true })
 
     assert.strictEqual(outputLog, expected)
   })

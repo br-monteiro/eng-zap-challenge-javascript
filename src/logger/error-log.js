@@ -9,16 +9,11 @@ class ErrorLog {
   }
 
   /**
-   * @param { LogType } type - The type of log
    * @param { string } message - The message of log
    * @param { Object } info - The object with more details about log
    */
-  async log (type, message = '', info = {}) {
-    if (type !== 'error') return false
-
+  async log (message = '', info = {}) {
     this.bole.error(message, info)
-
-    return true
   }
 }
 

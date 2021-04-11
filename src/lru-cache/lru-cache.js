@@ -7,7 +7,7 @@ class LRUCache {
    */
   constructor (capacity) {
     if (!Number.isInteger(capacity) || capacity <= 0) {
-      logger.log('error', 'The capacity must be a positive integer more than zero')
+      logger.error('The capacity must be a positive integer more than zero')
 
       throw new Error('The capacity must be a positive integer more than zero')
     }
@@ -72,7 +72,7 @@ class LRUCache {
       data === undefined ||
       data === null
     ) {
-      logger.log('error', 'The "key" and "value" should be different of "undefined" of "null"')
+      logger.error('The "key" and "value" should be different of "undefined" of "null"')
 
       throw new Error('The "key" and "value" should be different of "undefined" of "null"')
     }
@@ -131,7 +131,7 @@ class LRUCache {
       key === undefined ||
       key === null
     ) {
-      logger.log('error', 'The "key" should be different of "undefined" of "null"')
+      logger.error('The "key" should be different of "undefined" of "null"')
 
       throw new Error('The "key" should be different of "undefined" of "null"')
     }
@@ -165,7 +165,7 @@ class LRUCache {
 
     this.size -= 1
 
-    logger.log('info', 'item removed from cache', { key, data: result.data })
+    logger.info('item removed from cache', { key, data: result.data })
 
     return true
   }
@@ -182,7 +182,7 @@ class LRUCache {
     this.map = {}
     this.size = 0
 
-    logger.log('info', 'cache cleaned')
+    logger.info('cache cleaned')
 
     return true
   }

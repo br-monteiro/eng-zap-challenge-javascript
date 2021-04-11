@@ -125,18 +125,14 @@ class QueryProcessor {
 
       return result
     } else {
-      const filtersSet = filters.reduce((_set, filter, index) => {
+      const filtersSet = filters.reduce((setOfIds, filter, index) => {
         const filterCollection = getFilter(normAPIKey, filter.key, filter.value)
 
         if (filterCollection) {
-          if (index === 0) {
-            _set = filterCollection
-          } else {
-            _set = intersection(_set, filterCollection)
-          }
+          setOfIds = index === 0 ? filterCollection : intersection(setOfIds, filterCollection)
         }
 
-        return _set
+        return setOfIds
       }, new Set())
 
       if (!filtersSet.size) return null
@@ -161,7 +157,7 @@ class QueryProcessor {
 
   /**
    * Build the QueryResult object
-   * @param { Array } collection - The collection of items from storage
+   * @param { Array<InputData> } collection - The collection of items from storage
    * @param { PaginationSettings } pagination - The pagination settings
    * @returns { QueryResult }
    */
