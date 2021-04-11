@@ -1,5 +1,5 @@
 const AbstractHandler = require('./abstract-handler')
-const { setData, setFilter } = require('../../storage')
+const { setData, getData } = require('../../storage')
 
 class SetDataVivaReal extends AbstractHandler {
   /**
@@ -8,41 +8,28 @@ class SetDataVivaReal extends AbstractHandler {
    */
   handle (data) {
     try {
-      const apikey = 'viva-real'
+      let id = null
+      let apikey = null
+      let oldData = null
+
       const businessType = data.pricingInfos.businessType
-      const rentalTotalPrice = Number(data.pricingInfos.rentalTotalPrice)
       const price = Number(data.pricingInfos.price)
 
       const isAvailableForSale = businessType === 'SALE' && price <= 700000
       const isAvailableForRental = this.isAvailableForRental(data)
+      const isAvailableToUpdate = this.isAvailableToUpdate(data)
 
-      if ((isAvailableForRental || isAvailableForSale)) {
-        const monthlyCondoFee = Number(data.pricingInfos.monthlyCondoFee)
-        const usableAreas = Number(data.usableAreas)
-        const parkingSpaces = Number(data.parkingSpaces)
-        const bathrooms = Number(data.bathrooms)
-        const bedrooms = Number(data.bedrooms)
-        const id = setData(apikey, data)
-        const { city, neighborhood } = data.address
+      if (
+        isAvailableToUpdate &&
+        (isAvailableForRental || isAvailableForSale)
+      ) {
+        apikey = 'viva-real'
+        oldData = getData(apikey, data.id)
 
-        setFilter(apikey, 'businessType', id, businessType.toLocaleLowerCase())
-
-        if (!isNaN(usableAreas)) setFilter(apikey, 'usableAreas', id, usableAreas)
-        if (!isNaN(parkingSpaces)) setFilter(apikey, 'parkingSpaces', id, parkingSpaces)
-        if (!isNaN(bathrooms)) setFilter(apikey, 'bathrooms', id, bathrooms)
-        if (!isNaN(bedrooms)) setFilter(apikey, 'bedrooms', id, bedrooms)
-        if (city) setFilter(apikey, 'city', id, city)
-        if (neighborhood) setFilter(apikey, 'neighborhood', id, neighborhood)
-        if (monthlyCondoFee) setFilter(apikey, 'monthlyCondoFee', id, monthlyCondoFee)
-
-        if (isAvailableForRental) {
-          setFilter(apikey, 'price', id, rentalTotalPrice)
-        } else {
-          setFilter(apikey, 'price', id, price)
-        }
+        id = setData(apikey, data)
       }
 
-      return super.handle(data)
+      return super.handle(data, apikey, id, oldData)
     } catch (error) {
       return super.handle(data)
     }
@@ -55,15 +42,32 @@ class SetDataVivaReal extends AbstractHandler {
    */
   isAvailableForRental (data) {
     const businessType = data.pricingInfos.businessType
-    const rentalTotalPrice = Number(data.pricingInfos.rentalTotalPrice)
     const monthlyCondoFee = Number(data.pricingInfos.monthlyCondoFee)
+    let rentalTotalPrice = Number(data.pricingInfos.rentalTotalPrice)
 
-    return businessType === 'RENTAL' &&
-      rentalTotalPrice <= 4000 &&
-      monthlyCondoFee > 0 &&
+    if (
+      businessType !== 'RENTAL' ||
+      isNaN(monthlyCondoFee) ||
+      isNaN(rentalTotalPrice)
+    ) {
+      return false
+    }
+
+    const lat = data.address.geoLocation.location.lat
+    const lon = data.address.geoLocation.location.lon
+
+    rentalTotalPrice = this.isBoundingBoxZap(lat, lon) ? rentalTotalPrice * 1.5 : rentalTotalPrice
+
+    return rentalTotalPrice <= 4000 &&
       monthlyCondoFee < (rentalTotalPrice * 0.3)
   }
 
+  /**
+   * Check if the Lat and Long is inside of Zap BoundingBox
+   * @param { number } lat
+   * @param { number } lon
+   * @returns { boolean }
+   */
   isBoundingBoxZap (lat, lon) {
     const minLat = -23.568704
     const maxLat = -23.546686

@@ -18,6 +18,7 @@
  * @property { string } listingStatus
  * @property { number } parkingSpaces
  * @property { number } bathrooms
+ * @property { number } bedrooms
  * @property { boolean } owner
  * @property { Array<String> } images
  * @property { InputDataAddress } address
