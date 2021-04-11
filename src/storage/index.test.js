@@ -1,6 +1,6 @@
 const assert = require('assert')
 const LRUCache = require('../lru-cache')
-const { getData, getFilter, getCollection, getCache, setData, setFilter } = require('./index')
+const { getData, getFilter, getCollection, getCache, setData, setFilter, removeFilter } = require('./index')
 const storage = require('./storage')
 
 describe('storage - index', () => {
@@ -169,6 +169,27 @@ describe('storage - index', () => {
   describe('#getCache', () => {
     it('returns an instance of LRUCache', () => {
       assert.strictEqual(getCache() instanceof LRUCache, true)
+    })
+  })
+
+  describe('#removeFilter', () => {
+    it('returns true when the filter was removed from storage', () => {
+      setFilter('olx-test', 'filter-abc', 'data-id', 'filter-value')
+      setFilter('olx-test', 'filter-abc', 'data-id', 1234)
+
+      assert.strictEqual(removeFilter('olx-test', 'filter-abc', 'data-id', 'filter-value'), true)
+      assert.strictEqual(removeFilter('olx-test', 'filter-abc', 'data-id', 1234), true)
+
+      assert.deepStrictEqual(getFilter('olx-test', 'filter-abc', 'filter-value'), new Set())
+      assert.deepStrictEqual(getFilter('olx-test', 'filter-abc', 1234), new Set())
+    })
+
+    it('returns false when there is no filter associated with the value in storage for the APIKey', () => {
+      assert.strictEqual(removeFilter('olx-test', 'filter-abc', 'data-id', 'filter-value'), false)
+      assert.strictEqual(removeFilter('olx-test', 'filter-abc', 'data-id', 1234), false)
+
+      assert.deepStrictEqual(getFilter('olx-test', 'filter-abc', 'filter-value'), null)
+      assert.deepStrictEqual(getFilter('olx-test', 'filter-abc', 1234), null)
     })
   })
 })
