@@ -185,7 +185,7 @@ Para evitar o processamento desnecessário sobre os registros, foi implementado 
 O deploy da aplicação pode ser realizado de forma bem simples, pois neste caso não se está usando um SGDB, ou seja, basicamente após realizar o clone do repositório no servidor, temos que instalar as dependências e startar a aplicação. Abaixo é exibido a sequência de comandos necessários para o deploy:
 
 ```bash
-$ git clone git@github.com:br-monteiro/$ng-zap-challenge-javascript.git
+$ git clone git@github.com:br-monteiro/eng-zap-challenge-javascript.git
 $ cd eng-zap-challenge-javascript
 $ npm install
 $ npm install -g pm2
