@@ -189,7 +189,7 @@ $ git clone git@github.com:br-monteiro/eng-zap-challenge-javascript.git
 $ cd eng-zap-challenge-javascript
 $ npm install
 $ npm install -g pm2
-$ pm2 start ./src/server.js
+$ pm2 start
 ```
 
 #### Evolução da API
