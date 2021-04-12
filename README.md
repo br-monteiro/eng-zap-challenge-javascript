@@ -16,7 +16,7 @@ A estrutura do storage para registros se parece com o seguinte:
 
 ```javascrip
 {
-  <apike>: {
+  <apikey>: {
      <data-id>: <data>
   }
 }
@@ -41,7 +41,7 @@ Onde:
 
 Desta forma, o acesso a um determinado registro fica de forma direta. Ainda assim, apenas acessar a coleção de registros de uma determinada APIKey não seria o suficiente, pois em alguns casos, precisamos usar filtros para melhorar e resultado da API.
 
-Pensando nisto, também foi um implementado uma estrutura onde é possível recuperar os registros de uma determinada APIKey com o uso de filtros. A estrutura de dados usada para filtros se parece com o seguinte:
+Pensando nisto, também foi implementado uma estrutura onde é possível recuperar os registros de uma determinada APIKey com o uso de filtros. A estrutura de dados usada para filtros se parece com o seguinte:
 
 ```javacript
 {
@@ -79,7 +79,7 @@ Onde:
  - businessType
  - neighborhood
 
-A implementação se a poiou na Teoria dos Conjuntos, de onde foi tirado o conceito de intersecção, que é aplicado na relação entre os filtros quando solicitados em uma request:
+A implementação se apoiou na Teoria dos Conjuntos, de onde foi tirado o conceito de intersecção, que é aplicado na relação entre os filtros quando solicitados em uma request:
 
 *Filtro A*: `{1, 2, 3, 4, 5}`<br>
 *Filtro B*: `{4, 5, 6, 7, 8, 9}`<br>
