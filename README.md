@@ -81,11 +81,15 @@ Onde:
 
 A implementação se a poiou na Teoria dos Conjuntos, de onde foi tirado o conceito de intersecção, que é aplicado na relação entre os filtros quando solicitados em uma request:
 
-*Filtro A*: `{1, 2, 3, 4, 5}`
-*Filtro B*: `{4, 5, 6, 7, 8, 9}`
-*A ∩ B* : `{4, 5}`
+*Filtro A*: `{1, 2, 3, 4, 5}`<br>
+*Filtro B*: `{4, 5, 6, 7, 8, 9}`<br>
+*A ∩ B* : `{4, 5}`<br>
+
+<center>
 
 ![intersection](https://codedestine.com/wp-content/uploads/2017/12/PythonSetOpIntersection.png)
+
+</center>
 
 #### Processamento do source
 Para processar o arquivo de source, foi criada uma rota especial para que seja informado à API qual arquivo dever ser processado. Este processamento basicamente ocorre da seguinte forma:
@@ -136,7 +140,7 @@ POST /api/v1/load
 
 Após alguns segundos, será exibida uma mensagem de **log** no terminal onde a aplicação está sendo executada, informando que os registros foram carregados na memória.
 
-Após o carregamento, os registros já podem ser consultado na rota:
+Após o carregamento, os registros já podem ser consultados na rota:
 
 `GET /api/v1/:apikey`
 
@@ -220,4 +224,5 @@ Se você chegou até aqui, parabéns! =)
 ![party](https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif)
 
 </center>
+
 ### LAUS DEO ∴
