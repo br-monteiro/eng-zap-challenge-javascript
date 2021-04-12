@@ -1,4 +1,5 @@
 const AbstractHandler = require('./abstract-handler')
+const { zap } = require('../../config')
 const { setData, getData } = require('../../storage')
 const { isBoundingBoxZap } = require('../../utils')
 
@@ -16,7 +17,7 @@ class SetDataZap extends AbstractHandler {
       const businessType = data.pricingInfos.businessType
       const rentalTotalPrice = Number(data.pricingInfos.rentalTotalPrice)
 
-      const isAvailableForRental = businessType === 'RENTAL' && rentalTotalPrice <= 3500
+      const isAvailableForRental = businessType === 'RENTAL' && rentalTotalPrice <= zap.minRentalValue
       const isAvailableForSale = this.isAvailableForSale(data)
       const isAvailableToUpdate = this.isAvailableToUpdate(data)
 
@@ -43,6 +44,7 @@ class SetDataZap extends AbstractHandler {
    */
   isAvailableForSale (data) {
     const businessType = data.pricingInfos.businessType
+    let price = Number(data.pricingInfos.price)
 
     if (businessType !== 'SALE') return false
 
@@ -50,12 +52,13 @@ class SetDataZap extends AbstractHandler {
     const lon = data.address.geoLocation.location.lon
     const usableAreas = data.usableAreas
 
-    let price = Number(data.pricingInfos.price)
     price = isBoundingBoxZap(lat, lon) ? price - (price * 0.1) : price
 
     const squareMeterValue = price / usableAreas
 
-    return usableAreas > 0 && squareMeterValue > 3500
+    return usableAreas > 0 &&
+      squareMeterValue > zap.maxSquareMeterValue &&
+      price < zap.minSaleValue
   }
 }
 

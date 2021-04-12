@@ -1,4 +1,5 @@
 const AbstractHandler = require('./abstract-handler')
+const { vivaReal } = require('../../config')
 const { setData, getData } = require('../../storage')
 const { isBoundingBoxZap } = require('../../utils')
 
@@ -16,7 +17,7 @@ class SetDataVivaReal extends AbstractHandler {
       const businessType = data.pricingInfos.businessType
       const price = Number(data.pricingInfos.price)
 
-      const isAvailableForSale = businessType === 'SALE' && price <= 700000
+      const isAvailableForSale = businessType === 'SALE' && price <= vivaReal.maxSaleValue
       const isAvailableForRental = this.isAvailableForRental(data)
       const isAvailableToUpdate = this.isAvailableToUpdate(data)
 
@@ -59,7 +60,7 @@ class SetDataVivaReal extends AbstractHandler {
 
     rentalTotalPrice = isBoundingBoxZap(lat, lon) ? rentalTotalPrice * 1.5 : rentalTotalPrice
 
-    return rentalTotalPrice <= 4000 &&
+    return rentalTotalPrice <= vivaReal.maxRentalValue &&
       monthlyCondoFee < (rentalTotalPrice * 0.3)
   }
 }

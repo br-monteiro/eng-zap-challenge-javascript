@@ -43,9 +43,13 @@ async function processInputData (req, res) {
 
   const url = req.body.sourceUrl
 
-  processSource(url).then(() => {
-    logger.info('source processed')
-  })
+  processSource(url)
+    .then(() => {
+      logger.info('source processed')
+    })
+    .catch(error => {
+      logger.error('there was an error when trying to process the URL', error)
+    })
 
   return res.send(buildResponsePattern('success', `queue started at ${new Date()}`))
 }

@@ -1,3 +1,5 @@
+const { zap } = require('../config')
+
 /**
  * @param { 'success' | 'error' } status
  * @param { string } message
@@ -136,10 +138,10 @@ function buildPaginationSettings (request) {
  * @returns { boolean }
  */
 function isBoundingBoxZap (lat, lon) {
-  const minLat = -23.568704
-  const maxLat = -23.546686
-  const minLon = -46.693419
-  const maxLon = -46.641146
+  const minLat = zap.boundingBox.minLat
+  const maxLat = zap.boundingBox.maxLat
+  const minLon = zap.boundingBox.minLon
+  const maxLon = zap.boundingBox.maxLon
 
   return (lat >= minLat && lat <= maxLat) && (lon >= minLon && lon <= maxLon)
 }
