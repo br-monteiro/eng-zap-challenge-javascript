@@ -170,7 +170,7 @@ class QueryProcessor {
     return {
       pageNumber: page,
       pageSize: listings.length,
-      totalCount: chunks.length,
+      totalCount: collection.length,
       listings
     }
   }
