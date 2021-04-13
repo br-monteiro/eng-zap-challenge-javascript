@@ -146,7 +146,7 @@ Após o carregamento, os registros já podem ser consultados na rota:
 
 Onde `:apikey` se refere a `zap` ou `viva-real`
 
-#### Filtros
+#### Filtros e Paginação
 Após o carregamento dos registros, é possível acessá-los na rota `GET /api/v1/:apikey`, onde também é possível usar filtros para melhorar o resultado da consulta.
 Basicamente, a sintaxe de uma parâmetro de filtro na URL se parece com o seguinte:
 
@@ -169,6 +169,23 @@ Exemplo:
 
 `/api/v1/zap?filter[city]=São Paulo&filter[businessType]=sale&filter[bedrooms]=3`
 
+Além dos filtros, também é possível navegar na paginação dos resultados. Para isto, basta passagar o parâmetro `page` informando a página e/ou `perPage` informando a quantidade de registros por página (por padrão é 50):
+
+```
+page=<number>
+```
+```
+perPage=<number>
+```
+Exemplo:
+
+`/api/v1/zap?page=3`
+
+`/api/v1/zap?page=3&perPage=77`
+
+`/api/v1/zap?filter[city]=São Paulo&page=3`
+
+`/api/v1/zap?filter[city]=São Paulo&page=3&perPage=77`
 
 #### Usando o Heroku
 Para melhorar a experiência de testes, foi realizado o deploy da aplicação no Heroku (em uma conta free). O endereço da aplicação é:
