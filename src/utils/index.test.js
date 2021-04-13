@@ -210,6 +210,36 @@ describe('utils - index', () => {
       assert.deepStrictEqual(utils.buildPaginationSettings(), expected)
       assert.deepStrictEqual(utils.buildPaginationSettings({}), expected)
     })
+
+    it('returns the PaginationSettings with default values when informed a negative value', () => {
+      const expected = {
+        page: 1,
+        perPage: 50
+      }
+
+      mockRequest.query.page = -1
+      mockRequest.query.perPage = -20
+
+      assert.deepStrictEqual(utils.buildPaginationSettings(mockRequest), expected)
+    })
+
+    it('returns the PaginationSettings with default values when informed a non-integer value', () => {
+      const expected = {
+        page: 1,
+        perPage: 50
+      }
+
+      const mockRequestString = Object.assign({}, mockRequest)
+      const mockRequestFloat = Object.assign({}, mockRequest)
+
+      mockRequestString.query.page = 'a'
+      mockRequestString.query.perPage = 'b'
+      mockRequestFloat.query.page = 1.77
+      mockRequestFloat.query.perPage = 50.77
+
+      assert.deepStrictEqual(utils.buildPaginationSettings(mockRequestString), expected)
+      assert.deepStrictEqual(utils.buildPaginationSettings(mockRequestFloat), expected)
+    })
   })
 
   describe('#isBoundingBoxZap', () => {
