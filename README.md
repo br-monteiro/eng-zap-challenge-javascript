@@ -169,7 +169,7 @@ Exemplo:
 
 `/api/v1/zap?filter[city]=São Paulo&filter[businessType]=sale&filter[bedrooms]=3`
 
-Além dos filtros, também é possível navegar na paginação dos resultados. Para isto, basta passagar o parâmetro `page` informando a página e/ou `perPage` informando a quantidade de registros por página (por padrão é 50):
+Além dos filtros, também é possível navegar na paginação dos resultados, para isto, basta passar os parâmetros `page` informando a página e/ou `perPage` informando a quantidade de registros por página (por padrão é 50):
 
 ```
 page=<number>
