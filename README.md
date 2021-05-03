@@ -4,6 +4,8 @@
   <img src="https://logopond.com/logos/8a551fef96ccb8a2219477b9a9de1e1d.png">
 </p>
 
+![unit-test-ga](https://github.com/br-monteiro/mnemosine-rest-api/actions/workflows/tests.node.js.yml/badge.svg)
+
 #### Dependências
  - Docker v19.03
  - Docker-compose v1.27
