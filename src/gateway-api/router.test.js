@@ -13,13 +13,13 @@ chai.should()
 
 describe('gateway-api - router', () => {
   beforeEach(() => {
-    setData('zap', { id: '123' })
-    setData('viva-real', { id: '123' })
-    setFilter('zap', 'area', '123', '77')
+    setData('htr', { id: '123' })
+    setData('edinho', { id: '123' })
+    setFilter('htr', 'area', '123', '77')
   })
 
   describe('GET /api/v1/:apikey', () => {
-    it('should returns HTTP 200 when the APIKey is equals to "viva-real"', (done) => {
+    it('should returns HTTP 200 when the APIKey is equals to "edinho"', (done) => {
       const expected = {
         pageNumber: 1,
         pageSize: 1,
@@ -30,7 +30,7 @@ describe('gateway-api - router', () => {
       }
 
       chai.request(app)
-        .get('/api/v1/viva-real')
+        .get('/api/v1/edinho')
         .end((_, res) => {
           res.should.have.status('200')
           assert.deepStrictEqual(res.body, expected)
@@ -38,7 +38,7 @@ describe('gateway-api - router', () => {
         })
     })
 
-    it('should returns HTTP 200 when the APIKey is equals to "zap"', (done) => {
+    it('should returns HTTP 200 when the APIKey is equals to "htr"', (done) => {
       const expected = {
         pageNumber: 1,
         pageSize: 1,
@@ -49,7 +49,7 @@ describe('gateway-api - router', () => {
       }
 
       chai.request(app)
-        .get('/api/v1/zap')
+        .get('/api/v1/htr')
         .end((_, res) => {
           res.should.have.status('200')
           assert.deepStrictEqual(res.body, expected)
@@ -68,7 +68,7 @@ describe('gateway-api - router', () => {
       }
 
       chai.request(app)
-        .get('/api/v1/zap?filter[area]=77')
+        .get('/api/v1/htr?filter[area]=77')
         .end((_, res) => {
           res.should.have.status('200')
           assert.deepStrictEqual(res.body, expected)
@@ -98,7 +98,7 @@ describe('gateway-api - router', () => {
       }
 
       chai.request(app)
-        .get('/api/v1/zap?filter[acb]=123')
+        .get('/api/v1/htr?filter[acb]=123')
         .end((_, res) => {
           res.should.have.status('404')
           assert.deepStrictEqual(res.body, expected)

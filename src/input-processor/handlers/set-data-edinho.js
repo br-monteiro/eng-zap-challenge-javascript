@@ -1,9 +1,9 @@
 const AbstractHandler = require('./abstract-handler')
-const { vivaReal } = require('../../config')
+const { edinho } = require('../../config')
 const { setData, getData } = require('../../storage')
-const { isBoundingBoxZap } = require('../../utils')
+const { isBoundingBoxHtr } = require('../../utils')
 
-class SetDataVivaReal extends AbstractHandler {
+class SetDataEdinho extends AbstractHandler {
   /**
    * @param { InputData } data - The data object
    * @return { AbstractHandler }
@@ -17,7 +17,7 @@ class SetDataVivaReal extends AbstractHandler {
       const businessType = data.pricingInfos.businessType
       const price = Number(data.pricingInfos.price)
 
-      const isAvailableForSale = businessType === 'SALE' && price <= vivaReal.maxSaleValue
+      const isAvailableForSale = businessType === 'SALE' && price <= edinho.maxSaleValue
       const isAvailableForRental = this.isAvailableForRental(data)
       const isAvailableToUpdate = this.isAvailableToUpdate(data)
 
@@ -25,7 +25,7 @@ class SetDataVivaReal extends AbstractHandler {
         isAvailableToUpdate &&
         (isAvailableForRental || isAvailableForSale)
       ) {
-        apikey = 'viva-real'
+        apikey = 'edinho'
         oldData = getData(apikey, data.id)
 
         id = setData(apikey, data)
@@ -58,11 +58,11 @@ class SetDataVivaReal extends AbstractHandler {
     const lat = data.address.geoLocation.location.lat
     const lon = data.address.geoLocation.location.lon
 
-    rentalTotalPrice = isBoundingBoxZap(lat, lon) ? rentalTotalPrice * 1.5 : rentalTotalPrice
+    rentalTotalPrice = isBoundingBoxHtr(lat, lon) ? rentalTotalPrice * 1.5 : rentalTotalPrice
 
-    return rentalTotalPrice <= vivaReal.maxRentalValue &&
+    return rentalTotalPrice <= edinho.maxRentalValue &&
       monthlyCondoFee < (rentalTotalPrice * 0.3)
   }
 }
 
-module.exports = SetDataVivaReal
+module.exports = SetDataEdinho

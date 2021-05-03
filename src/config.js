@@ -4,7 +4,7 @@
 // const maxLon = -46.641146
 
 module.exports = {
-  zap: {
+  htr: {
     minRentalValue: 3500,
     minSaleValue: 600000,
     maxSquareMeterValue: 3500,
@@ -15,7 +15,7 @@ module.exports = {
       maxLon: -46.641146
     }
   },
-  vivaReal: {
+  edinho: {
     maxRentalValue: 4000,
     maxSaleValue: 700000
   }
