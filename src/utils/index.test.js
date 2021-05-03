@@ -242,23 +242,23 @@ describe('utils - index', () => {
     })
   })
 
-  describe('#isBoundingBoxZap', () => {
-    it('returns true when the Lat and Long is inside of ZAP BoundingBox', () => {
-      assert.strictEqual(utils.isBoundingBoxZap(-23.568704, -46.693419), true)
-      assert.strictEqual(utils.isBoundingBoxZap(-23.546686, -46.641146), true)
+  describe('#isBoundingBoxHtr', () => {
+    it('returns true when the Lat and Long is inside of HTR BoundingBox', () => {
+      assert.strictEqual(utils.isBoundingBoxHtr(-23.568704, -46.693419), true)
+      assert.strictEqual(utils.isBoundingBoxHtr(-23.546686, -46.641146), true)
     })
 
-    it('returns false when the Lat and Long is outside of ZAP BoundingBox', () => {
-      assert.strictEqual(utils.isBoundingBoxZap(0, 0), false)
-      assert.strictEqual(utils.isBoundingBoxZap(-23.546685, -46.641145), false)
-      assert.strictEqual(utils.isBoundingBoxZap(-23.568705, -46.693420), false)
+    it('returns false when the Lat and Long is outside of HTR BoundingBox', () => {
+      assert.strictEqual(utils.isBoundingBoxHtr(0, 0), false)
+      assert.strictEqual(utils.isBoundingBoxHtr(-23.546685, -46.641145), false)
+      assert.strictEqual(utils.isBoundingBoxHtr(-23.568705, -46.693420), false)
     })
 
     it('returns false when the values were not informed', () => {
-      assert.strictEqual(utils.isBoundingBoxZap(), false)
-      assert.strictEqual(utils.isBoundingBoxZap(undefined, undefined), false)
-      assert.strictEqual(utils.isBoundingBoxZap(null, null), false)
-      assert.strictEqual(utils.isBoundingBoxZap([], []), false)
+      assert.strictEqual(utils.isBoundingBoxHtr(), false)
+      assert.strictEqual(utils.isBoundingBoxHtr(undefined, undefined), false)
+      assert.strictEqual(utils.isBoundingBoxHtr(null, null), false)
+      assert.strictEqual(utils.isBoundingBoxHtr([], []), false)
     })
   })
 })
