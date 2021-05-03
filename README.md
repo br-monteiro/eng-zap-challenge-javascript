@@ -112,7 +112,7 @@ Para processar o arquivo de source, foi criada uma rota especial para que seja i
 API é composta por apenas duas rotas, são elas:
 
 ###### GET /api/v1/:apikey
-> Usada para consultar os registros de uma determinada APIKey.
+> Usada para consultar os registros de uma determinada APIKey
 
 Esta rota retorna os resultados com `status code 200` em caso de sucesso. Em caso de nenhum registro associado à APIKey ou à combinação de filtros, retorna `status code 404`
 
