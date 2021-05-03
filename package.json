@@ -1,5 +1,5 @@
 {
-  "name": "olx-challenge",
+  "name": "mnemosine-rest-api",
   "version": "1.0.0",
   "description": "My solution for the OLX SWE Challenge",
   "main": "index.js",
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/br-monteiro/olx-challenge.git"
+    "url": "git+https://github.com/br-monteiro/mnemosine-rest-api.git"
   },
   "author": "Edson B S Monteiro <bruno.monteirodg@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/br-monteiro/olx-challenge/issues"
+    "url": "https://github.com/br-monteiro/mnemosine-rest-api/issues"
   },
-  "homepage": "https://github.com/br-monteiro/olx-challenge#readme",
+  "homepage": "https://github.com/br-monteiro/mnemosine-rest-api#readme",
   "devDependencies": {
     "chai": "^4.3.4",
     "chai-http": "^4.3.0",
