@@ -1,4 +1,4 @@
-const { zap } = require('../config')
+const { htr } = require('../config')
 
 /**
  * @param { 'success' | 'error' } status
@@ -132,16 +132,16 @@ function buildPaginationSettings (request) {
 }
 
 /**
- * Check if the Lat and Long is inside of ZAP BoundingBox
+ * Check if the Lat and Long is inside of HTR BoundingBox
  * @param { number } lat
  * @param { number } lon
  * @returns { boolean }
  */
-function isBoundingBoxZap (lat, lon) {
-  const minLat = zap.boundingBox.minLat
-  const maxLat = zap.boundingBox.maxLat
-  const minLon = zap.boundingBox.minLon
-  const maxLon = zap.boundingBox.maxLon
+function isBoundingBoxHtr (lat, lon) {
+  const minLat = htr.boundingBox.minLat
+  const maxLat = htr.boundingBox.maxLat
+  const minLon = htr.boundingBox.minLon
+  const maxLon = htr.boundingBox.maxLon
 
   return (lat >= minLat && lat <= maxLat) && (lon >= minLon && lon <= maxLon)
 }
@@ -153,5 +153,5 @@ module.exports = {
   intersection,
   chunkArray,
   buildPaginationSettings,
-  isBoundingBoxZap
+  isBoundingBoxHtr
 }
