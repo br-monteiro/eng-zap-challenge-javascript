@@ -109,7 +109,7 @@ describe('gateway-api - router', () => {
 
   describe('POST /api/v1/load', () => {
     it('returns HTTP 200 when the Request body is according of JSON Schema', (done) => {
-      const regexBody = /^queue started at \w{3}\s\w{3}\s\d{2}\s\d{4}\s(\d{2}(:|\s))+\w+.\d+\s\([\w\s]+\)$/
+      const regexBody = /^queue started at \w{3}\s\w{3}\s\d{2}\s\d{4}\s(\d{2}(:|\s))+\w+.\d+\s\([\w\sÀ-ú]+\)$/
 
       chai.request(app)
         .post('/api/v1/load')
